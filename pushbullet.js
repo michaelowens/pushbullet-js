@@ -12,17 +12,21 @@ var PushBullet = (function() {
 
     pb.APIKey = null;
 
-    pb.push = function(pushType, devId, email, data, callback) {
+    pb.push = function(pushType, devId, emailOrChannel, data, callback) {
         var parameters = {type: pushType.toLowerCase()};
-        if(email && devId) {
+        if(emailOrChannel && devId) {
             var err = new Error("Cannot push to both device and contact");
             if(callback) {
                 return callback(err);
             } else {
                 throw err;
             }
-        } else if(email) {
-            parameters.email = email;
+        } else if(emailOrChannel) {
+            if (emailOrChannel.indexOf('@') > -1) {
+                parameters.email = emailOrChannel;
+            } else {
+                parameters.channel_tag = emailOrChannel;
+            }
         } else if(devId) {
             parameters.device_iden = devId;
         }
