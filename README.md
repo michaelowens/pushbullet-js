@@ -40,10 +40,10 @@ PushBullet.APIKey = "<your api key here>";
 ----------------------------
 
 ### PushBullet.push
-`PushBullet.push(pushType, devId, email, data, callback)` - pushes either a note, link, address, or list to a PushBullet device.
+`PushBullet.push(pushType, devId, emailOrChannel, data, callback)` - pushes either a note, link, address, or list to a PushBullet device.
 * `pushType` - either `'note'`, `'link'`, `'address'`, or `'list'`. For file, use [PushBullet.pushFile](#pushbulletpushfile).
 * `devId` - the ID of the device to push to. Available device IDs can be found by using [PushBullet.devices](#pushbulletdevices). Either `devId` or `email` can be used, not both.
-* `email` - the email address of the contact to push to. Available contacts can be found with [PushBullet.contacts](#pushbulletcontacts). Either `devId` or `email` can be used, not both.
+* `emailOrChannel` - the email address of the contact to push to. Available contacts can be found with [PushBullet.contacts](#pushbulletcontacts). Either `devId` or `email` can be used, not both. UPDATE: if no @ is present, this will be used as channel tag.
 * `data` - the information to push.  Expects a JSONified version of the type parameters [here](https://docs.pushbullet.com/v2/pushes).
 * `callback` - Optional callback that expects an `err` and a `res` parameter.
 
@@ -52,7 +52,7 @@ If neither `devId` nor `email` are supplied, all devices will be pushed to.
 Example for synchronous:
 
 ```javascript
-var res = PushBullet.push("note", "<your device here", null, {title: "<your title here>", body: "<your body here>"});
+var res = PushBullet.push("note", "<your device here>", null, {title: "<your title here>", body: "<your body here>"});
 console.log(res);
 ```
 
